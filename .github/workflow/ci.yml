@@ -1,0 +1,26 @@
+name: C CI Compilation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Récupérer le code
+      uses: actions/checkout@v4
+
+    - name: Installer les dépendances
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgpiod-dev build-essential
+
+    - name: Compiler le projet
+      run: make
+
+    - name: Vérifier l'exécutable
+      run: ls -l clignoteur
